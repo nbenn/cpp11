@@ -215,9 +215,9 @@ generate_r_functions <- function(funs, package = "cpp11", use_package = FALSE) {
 
   if (use_package) {
     package_call <- glue::glue(', PACKAGE = "{package}"')
-    package_names <- glue::glue_data(funs, '"_{package}_{name}"')
+    package_names <- glue::glue_data(funs, '"_{package}_{sub("::", "_", name)}"')
   } else {
-    package_names <- glue::glue_data(funs, '`_{package}_{name}`')
+    package_names <- glue::glue_data(funs, '`_{package}_{sub("::", "_", name)}`')
     package_call <- ""
   }
 
@@ -232,7 +232,7 @@ generate_r_functions <- function(funs, package = "cpp11", use_package = FALSE) {
   )
 
   out <- glue::glue_data(funs, '
-    {name} <- function({list_params}) {{
+    {sub("^.*::", "", name)} <- function({list_params}) {{
       {calls}
     }}
     ')
