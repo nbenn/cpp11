@@ -169,7 +169,7 @@ generate_cpp_functions <- function(funs, package = "cpp11") {
     '
     // {basename(file)}
     {return_type} {name}({real_params});
-    extern "C" SEXP _{package}_{name}({sexp_params}) {{
+    extern "C" SEXP _{package}_{sub("::", "_", name)}({sexp_params}) {{
       BEGIN_CPP11
       {calls}
       END_CPP11
